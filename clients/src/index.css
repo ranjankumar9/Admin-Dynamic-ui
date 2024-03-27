@@ -1,0 +1,25 @@
+*{
+    font-family: 'Times New Roman', Times, serif;
+}
+
+::-webkit-scrollbar {
+    width: 15px;
+    height: 10px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px rgb(226, 143, 143);
+    border-radius: 10px;
+  }
+  
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: linear-gradient(180.84deg, rgba(11, 24, 102, 0.94) 59.3%, rgba(25, 42, 126, 0.561) 100%);
+    border-radius: 10px;
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(60deg, rgba(11, 24, 102, 0.94) 59.3%, rgba(25, 42, 126, 0.561) 100%);
+  }
