@@ -21,7 +21,6 @@ import Cookies from "js-cookie";
 export default function Dashboard(props) {
   const { ...rest } = props;
   const isAuth = Cookies.get("Email")
-  console.log(isAuth)
 
   // If not authenticated, redirect to login page
   if (!isAuth) {

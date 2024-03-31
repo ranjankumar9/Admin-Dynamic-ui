@@ -13,6 +13,9 @@ import {
   Avatar,
   Button,
   Tooltip,
+  InputGroup,
+  InputRightElement,
+  Input,
 } from "@chakra-ui/react";
 import Card from "components/Card/Card.js";
 import CardHeader from "components/Card/CardHeader.js";
@@ -23,6 +26,7 @@ import { getAuthors } from "Redux-Toolkit/authortableSlice";
 import { AuthorConfigurator } from "components/Configurator/AuthorConfigurator";
 import Cookies from "js-cookie";
 import { IoIosAddCircleOutline } from "react-icons/io";
+import { SearchIcon } from "@chakra-ui/icons";
 
 function Tables() {
   const dispatch = useDispatch();
@@ -36,6 +40,8 @@ function Tables() {
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(10);
   const totalPages = Math.ceil(authorData.length / itemsPerPage);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [filteredData, setFilteredData] = useState([]);
 
   const goToNextPage = () => {
     setCurrentPage((prevPage) => Math.min(prevPage + 1, totalPages));
@@ -67,33 +73,59 @@ function Tables() {
     AuthorTables();
   }, []);
 
+  useEffect(() => {
+    const filtered = authorData.filter((author) =>
+      author.name.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+    setFilteredData(filtered);
+  }, [searchQuery, authorData]);
+
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
-  const paginatedData = authorData.slice(startIndex, endIndex);
+  const paginatedData = filteredData.slice(startIndex, endIndex);
+
+  const handleSearchInputChange = (e) => {
+    setSearchQuery(e.target.value);
+  };
 
   return (
     <Flex direction="column" pt={{ base: "120px", md: "75px" }}>
       <Card overflowX={{ sm: "scroll", xl: "hidden" }} pb="0px">
-        <Box display={"flex"} alignItems={"center"} justifyContent={"space-between"}>
+        <Flex alignItems={"center"} w={'100%'} justifyContent={"space-between"}>
           <CardHeader p="6px 0px 22px 0px">
             <Text fontSize="lg" color="#fff" fontWeight="bold">
-              Authors Table
+              Author Table
             </Text>
           </CardHeader>
-          {userType === "superadmin" ? (
-            <CardHeader p="6px 0px 22px 0px">
-              <Tooltip hasArrow label='Add Author' bg='gray.300' color='black'>
-                <Text fontSize="30px" color="blue.200" fontWeight="bold" cursor={"pointer"}>
-                  <IoIosAddCircleOutline ref={btnRef} colorScheme="teal" onClick={onOpen} />
-                </Text>
-              </Tooltip>
 
-              <AuthorConfigurator btnRef={btnRef} isOpen={isOpen} onClose={onClose} AuthorTables={AuthorTables} />
-            </CardHeader>
-          ) : (
-            <div></div>
-          )}
-        </Box>
+          <Flex alignItems={'center'} justifyContent={'space-between'} w={'100%'}>
+            <Flex>
+              <InputGroup>
+                <InputRightElement pointerEvents='none'>
+                  <SearchIcon color='gray.300' cursor={'pointer'}  />
+                </InputRightElement>
+                <Input type='text' color={'whiteAlpha.600'} placeholder='Search by author name' onChange={handleSearchInputChange} />
+              </InputGroup>
+            </Flex>
+
+            <Flex>
+              {userType === "superadmin" ? (
+                <CardHeader p="6px 0px 22px 0px">
+                  <Tooltip hasArrow label='Add Author' bg='gray.300' color='black'>
+                    <Text fontSize="30px" color="blue.200" fontWeight="bold" cursor={"pointer"}>
+                      <IoIosAddCircleOutline ref={btnRef} colorScheme="teal" onClick={onOpen} />
+                    </Text>
+                  </Tooltip>
+
+                  <AuthorConfigurator btnRef={btnRef} isOpen={isOpen} onClose={onClose} AuthorTables={AuthorTables} />
+                </CardHeader>
+              ) : (
+                <Box></Box>
+              )}
+            </Flex>
+          </Flex>
+        </Flex>
+
         <CardBody display="grid" gridTemplateRows="auto 1fr auto">
           {loading ? (
             <Flex flexDirection="column" color="white" alignItems="center" justifyContent="center" width="100%">
@@ -102,7 +134,7 @@ function Tables() {
             </Flex>
           ) : (
             <>
-              <Table variant="simple" color="#fff">
+              <Table variant="simple" color="#fff" mt={5}>
                 <Thead>
                   <Tr my=".8rem" ps="0px" color="gray.400">
                     <Th ps="0px" color="gray.400" fontFamily="Plus Jakarta Display" borderBottomColor="#56577A">

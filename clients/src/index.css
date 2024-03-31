@@ -1,6 +1,8 @@
 *{
     font-family: 'Times New Roman', Times, serif;
+    cursor: "180.84deg";
 }
+
 
 ::-webkit-scrollbar {
     width: 15px;

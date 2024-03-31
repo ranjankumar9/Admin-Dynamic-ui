@@ -13,6 +13,8 @@ import {
   Icon,
   DarkMode,
   Select,
+  Tooltip,
+  Avatar,
 } from "@chakra-ui/react";
 import { FaApple, FaFacebook, FaGoogle } from "react-icons/fa";
 import AuthFooter from "components/Footer/AuthFooter";
@@ -23,6 +25,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { signupUser } from "Redux-Toolkit/authSlice";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
+import { HiOutlineInformationCircle } from "react-icons/hi2";
 
 function SignUp() {
   const [name, setName] = useState("");
@@ -65,8 +68,16 @@ function SignUp() {
         toast.error(res.msg);
       }
     } catch (error) {
-      console.error("Error:", error);
-      toast.error(error.response.data.message);
+      if (error.response) {
+        console.error("Server API error:", error.response.data);
+        toast.error(error.response.data.message);
+      } else if (error.request) {
+        console.error("Network error:", error.request);
+        toast.error("Network error. Please check your internet connection and try again.");
+      } else {
+        console.error("Error:", error.message);
+        toast.error("Server Error. Please try again later.");
+      }
     }
 
     setName("")
@@ -86,15 +97,16 @@ function SignUp() {
   return (
     <Flex position='relative' overflow={{ lg: "hidden" }}>
       <Flex
-        flexDirection='column'
+      alignItems={'center'}
         h={{ sm: "initial", md: "unset" }}
         w={{ base: "90%" }}
         maxW='1044px'
         mx='auto'
-        alignItems={"center"}
-        justifyContent='center'
         pt={{ sm: "100px", md: "0px" }}
         me={{ base: "auto", lg: "50px", xl: "auto" }}>
+        <Flex mt={20} display={{base:'none', md:'none', lg:'block'}}>
+          <Avatar src="https://i.pinimg.com/originals/0e/53/94/0e53948c0d24283e7cdd42f9bb0bda4e.jpg" borderRadius={'10px'} mixBlendMode={'color-burn'} width={'80%'} height={'70%'} />
+        </Flex>
         <Flex
           alignItems='center'
           justifyContent='start'
@@ -127,126 +139,174 @@ function SignUp() {
               </Text>
 
               <FormControl>
-                <FormLabel
-                  color={titleColor}
-                  ms='4px'
-                  fontSize='sm'
-                  fontWeight='normal'>
-                  Name
-                </FormLabel>
+                <Flex alignItems={'center'} gap={2}>
+                  <FormControl>
+                    <FormLabel
+                      color={titleColor}
+                      ms='4px'
+                      fontSize='sm'
+                      fontWeight='normal'>
+                      Name
+                    </FormLabel>
 
-                <GradientBorder
-                  mb='24px'
-                  h='50px'
-                  w={{ base: "100%", lg: "fit-content" }}
-                  borderRadius='20px'>
-                  <Input
-                    color={titleColor}
-                    bg={{
-                      base: "rgb(19,21,54)",
-                    }}
-                    border='transparent'
-                    borderRadius='20px'
-                    fontSize='sm'
-                    size='lg'
-                    w={{ base: "100%", md: "346px" }}
-                    maxW='100%'
-                    h='46px'
-                    type='text'
-                    placeholder='Your name'
-                    value={name}
-                    onChange={(obj) => setName(obj.target.value)}
-                  />
-                </GradientBorder>
-                <FormLabel
-                  color={titleColor}
-                  ms='4px'
-                  fontSize='sm'
-                  fontWeight='normal'>
-                  Type
-                </FormLabel>
+                    <GradientBorder
+                      mb='24px'
+                      h='50px'
+                      w={{ base: "100%", lg: "fit-content" }}
+                      borderRadius='20px'>
+                      <Input
+                        color={titleColor}
+                        bg={{
+                          base: "rgb(19,21,54)",
+                        }}
+                        border='transparent'
+                        borderRadius='20px'
+                        fontSize='sm'
+                        size='lg'
+                        w={{ base: "100%", md: "346px" }}
+                        maxW='100%'
+                        h='46px'
+                        type='text'
+                        placeholder='Your name'
+                        value={name}
+                        onChange={(obj) => setName(obj.target.value)}
+                      />
+                    </GradientBorder>
+                  </FormControl>
+                  <Tooltip hasArrow label='Enter Your Full Name' bg='gray.300' color='black'>
+                    <Text>
+                      <HiOutlineInformationCircle fontSize={25} color="yellow" cursor={'pointer'} />
+                    </Text>
 
-                <Select
-                  color={titleColor}
-                  bg={{
-                    base: "rgb(19,21,54)",
-                  }}
-                  border='2px solid white'
-                  borderRadius='20px'
-                  fontSize='sm'
-                  size='lg'
-                  w={{ base: "100%", md: "346px" }}
-                  maxW='100%'
-                  h='46px'
-                  variant="outline"
-                  value={type}
-                  onChange={(ev) => setType(ev.target.value)}
-                >
-                  <option style={{ color: 'blue' }} value='admin'>Admin</option>
-                  <option style={{ color: 'blue' }} value='superadmin'>Super Admin</option>
-                  <option style={{ color: 'blue' }} value='adminViewer'>Spectator</option>
-                </Select>
-                <FormLabel
-                  mt={7}
-                  color={titleColor}
-                  ms='4px'
-                  fontSize='sm'
-                  fontWeight='normal'>
-                  Email
-                </FormLabel>
-                <GradientBorder
-                  mb='24px'
-                  h='50px'
-                  w={{ base: "100%", lg: "fit-content" }}
-                  borderRadius='20px'>
-                  <Input
-                    color={titleColor}
-                    bg={{
-                      base: "rgb(19,21,54)",
-                    }}
-                    border='transparent'
-                    borderRadius='20px'
-                    fontSize='sm'
-                    size='lg'
-                    w={{ base: "100%", md: "346px" }}
-                    maxW='100%'
-                    h='46px'
-                    type='email'
-                    placeholder='Your email address'
-                    value={email}
-                    onChange={(obj) => setEmail(obj.target.value)}
-                  />
-                </GradientBorder>
-                <FormLabel
-                  color={titleColor}
-                  ms='4px'
-                  fontSize='sm'
-                  fontWeight='normal'>
-                  Password
-                </FormLabel>
-                <GradientBorder
-                  mb='24px'
-                  h='50px'
-                  w={{ base: "100%", lg: "fit-content" }}
-                  borderRadius='20px'>
-                  <Input
-                    color={titleColor}
-                    bg={{
-                      base: "rgb(19,21,54)",
-                    }}
-                    border='transparent'
-                    borderRadius='20px'
-                    fontSize='sm'
-                    size='lg'
-                    w={{ base: "100%", md: "346px" }}
-                    maxW='100%'
-                    h='46px'
-                    type='password'
-                    placeholder='Your password'
-                    value={password}
-                    onChange={(obj) => setPassword(obj.target.value)}
-                  />
-                </GradientBorder>
+                  </Tooltip>
+                </Flex>
+
+                <Flex alignItems={'center'} gap={2}>
+                  <FormControl>
+                    <FormLabel
+                      color={titleColor}
+                      ms='4px'
+                      fontSize='sm'
+                      fontWeight='normal'>
+                      Type
+                    </FormLabel>
+
+                    <GradientBorder mb='24px'
+                      h='50px'
+                      w={{ base: "100%", lg: "fit-content" }}
+                      borderRadius='20px'>
+                      <Select
+                        color={titleColor}
+                        bg={{
+                          base: "rgb(19,21,54)",
+                        }}
+                        border='transparent'
+                        borderRadius='20px'
+                        fontSize='sm'
+                        size='lg'
+                        w={{ base: "100%", md: "346px" }}
+                        maxW='100%'
+                        h='46px'
+
+                        value={type}
+                        onChange={(ev) => setType(ev.target.value)}
+                      >
+                        <option style={{ color: 'blue' }} value='admin'>Admin</option>
+                        <option style={{ color: 'blue' }} value='superadmin'>Super Admin</option>
+                        <option style={{ color: 'blue' }} value='adminViewer'>Spectator</option>
+                      </Select>
+                    </GradientBorder>
+                  </FormControl>
+                  <Tooltip hasArrow label='Please specify your user type.' bg='gray.300' color='black'>
+                    <Text>
+                      <HiOutlineInformationCircle fontSize={25} color="yellow" cursor={'pointer'} />
+                    </Text>
+                  </Tooltip>
+                </Flex>
+
+                <Flex alignItems={'center'} gap={2}>
+                  <FormControl>
+                    <FormLabel
+                      color={titleColor}
+                      ms='4px'
+                      fontSize='sm'
+                      fontWeight='normal'>
+                      Email
+                    </FormLabel>
+                    <GradientBorder
+                      mb='24px'
+                      h='50px'
+                      w={{ base: "100%", lg: "fit-content" }}
+                      borderRadius='20px'>
+                      <Input
+                        color={titleColor}
+                        bg={{
+                          base: "rgb(19,21,54)",
+                        }}
+                        border='transparent'
+                        borderRadius='20px'
+                        fontSize='sm'
+                        size='lg'
+                        w={{ base: "100%", md: "346px" }}
+                        maxW='100%'
+                        h='46px'
+                        type='email'
+                        placeholder='Your email address'
+                        value={email}
+                        onChange={(obj) => setEmail(obj.target.value)}
+                      />
+                    </GradientBorder>
+                  </FormControl>
+                  <Tooltip hasArrow label='your email address follows the standard email format. It should include the "@" symbol separating the username and the domain, followed by a valid domain extension (e.g., ".com", ".org").' bg='gray.300' color='black'>
+                    <Text>
+                      <HiOutlineInformationCircle fontSize={25} color="yellow" cursor={'pointer'} />
+                    </Text>
+                  </Tooltip>
+                </Flex>
+
+                <Flex alignItems={'center'} gap={2}>
+                  <FormControl>
+                    <FormLabel
+                      color={titleColor}
+                      ms='4px'
+                      fontSize='sm'
+                      fontWeight='normal'>
+                      Password
+                    </FormLabel>
+                    <GradientBorder
+                      mb='24px'
+                      h='50px'
+                      w={{ base: "100%", lg: "fit-content" }}
+                      borderRadius='20px'>
+                      <Input
+                        color={titleColor}
+                        bg={{
+                          base: "rgb(19,21,54)",
+                        }}
+                        border='transparent'
+                        borderRadius='20px'
+                        fontSize='sm'
+                        size='lg'
+                        w={{ base: "100%", md: "346px" }}
+                        maxW='100%'
+                        h='46px'
+                        type={showPassword ? "text" : "password"}
+                        placeholder='Your password'
+                        value={password}
+                        onChange={(obj) => setPassword(obj.target.value)}
+                      />
+                    </GradientBorder>
+                  </FormControl>
+                  <Tooltip hasArrow label='Your password must be at least 6 characters long.
+                        It should contain at least one special character such as !@#$%^&*
+              Include at least one alphabetical character (a-z or A-Z).
+                      Include at least one numerical character (0-9).' bg='gray.300' color='black'>
+                    <Text>
+                      <HiOutlineInformationCircle fontSize={25} color="yellow" cursor={'pointer'} />
+                    </Text>
+                  </Tooltip>
+                </Flex>
+
                 <FormControl display='flex' alignItems='center' mb='24px'>
                   <DarkMode>
                     <Switch id='remember-login' colorScheme='brand' me='10px' isChecked={showPassword}
@@ -275,6 +335,7 @@ function SignUp() {
                   SIGN UP
                 </Button>
               </FormControl>
+
               <Flex
                 flexDirection='column'
                 justifyContent='center'

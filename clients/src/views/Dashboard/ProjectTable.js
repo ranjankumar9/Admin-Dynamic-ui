@@ -18,6 +18,9 @@ import {
   Avatar,
   Button,
   Tooltip,
+  InputGroup,
+  InputRightElement,
+  Input,
 } from "@chakra-ui/react";
 
 // Custom components
@@ -39,6 +42,7 @@ import { getAuthors } from "Redux-Toolkit/authortableSlice";
 import { getProjectdata } from "Redux-Toolkit/projecttableSlice";
 import { ProjectConfigurator } from "components/Configurator/ProjectConfigurator";
 import Cookies from "js-cookie";
+import { SearchIcon } from "@chakra-ui/icons";
 
 
 
@@ -54,7 +58,9 @@ function ProjectTable() {
   var userType = Cookies.get('userType')
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(10);
+  const [searchQuery, setSearchQuery] = useState("");
   const totalPages = Math.ceil(projectdata.length / itemsPerPage);
+  const [filteredData, setFilteredData] = useState([]);
 
   const goToNextPage = () => {
     setCurrentPage((prevPage) => Math.min(prevPage + 1, totalPages));
@@ -62,6 +68,10 @@ function ProjectTable() {
 
   const goToPrevPage = () => {
     setCurrentPage((prevPage) => Math.max(prevPage - 1, 1));
+  };
+
+  const handleSearchInputChange = (e) => {
+    setSearchQuery(e.target.value);
   };
 
   const ProjectTables = () => {
@@ -86,26 +96,39 @@ function ProjectTable() {
     setDataType("ADD")
   }
 
-  console.log(dataType)
-
   useEffect(() => {
     ProjectTables()
   }, [])
 
+  useEffect(() => {
+    if (searchQuery === "") {
+      // If search query is empty, display the original unfiltered data
+      setFilteredData(projectdata);
+    } else {
+      // Filter the data based on the search query
+      const filteredData = projectdata.filter((project) =>
+        project.name.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+      setFilteredData(filteredData);
+    }
+  }, [searchQuery, projectdata]);
+
+
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
-  const paginatedData = projectdata.slice(startIndex, endIndex);
+  const paginatedData = filteredData.slice(startIndex, endIndex);
 
+  // console.log(paginatedData, projectdata)
 
   return (
-    <Flex direction='column' pt={{ base: "120px", md: "75px" }}>
+    <Flex direction='column' pt={{ base: "70px", md: "55px" }}>
       {/* Projects Table */}
       <Card my='22px' overflowX={{ sm: "scroll", xl: "hidden" }} pb='0px'>
         <CardHeader p='6px 0px 22px 0px'>
           <Flex alignItems='center' justifyContent='space-between' width='100%'>
             <Flex direction='column'>
               <Text fontSize='lg' color='#fff' fontWeight='bold' mb='.5rem'>
-                Projects Table
+                Project Table
               </Text>
 
               <Flex align='center'>
@@ -124,8 +147,21 @@ function ProjectTable() {
                   </Text>{" "}
                   this month
                 </Text>
-
               </Flex>
+            </Flex>
+
+            <Flex>
+              <InputGroup m="1rem">
+                <Input
+                  placeholder="Search by company name"
+                  color={'whiteAlpha.600'}
+                  value={searchQuery}
+                  onChange={handleSearchInputChange}
+                />
+                <InputRightElement pointerEvents="none">
+                  <Icon as={SearchIcon} color="gray.300" />
+                </InputRightElement>
+              </InputGroup>
             </Flex>
             {userType === "admin" || userType === "superadmin" ? (
               <Tooltip hasArrow label='Add Project' bg='gray.300' color='black'>
@@ -140,6 +176,7 @@ function ProjectTable() {
           </Flex>
         </CardHeader>
         <CardBody display="grid" gridTemplateRows="auto 1fr auto">
+
           {loading ? (
             <Flex flexDirection='column' color='white' alignItems='center' justifyContent='center' width='100%'>
               <Avatar src="https://i.pinimg.com/originals/13/ed/b3/13edb3ccfceecfb23a77f74418232244.gif" width='200px' height='200px' />
@@ -195,6 +232,7 @@ function ProjectTable() {
                       />
                     );
                   })}
+
                 </Tbody>
               </Table>
               <Flex justifyContent="center" mb="10px" alignItems="center">

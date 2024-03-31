@@ -109,19 +109,7 @@ export default function Configurator(props) {
                     </Button>
                   </Link>
                 </Box>
-                <Flex
-                  justifyContent='center'
-                  alignItems='center'
-                  w='100%'
-                  mb='16px'>
-                  <GitHubButton
-                    // href='https://github.com/creativetimofficial/vision-ui-dashboard-chakra'
-                    data-icon='octicon-star'
-                    data-show-count='true'
-                    aria-label='Star creativetimofficial/dynamic-ui-dashboard on GitHub'>
-                    Star
-                  </GitHubButton>
-                </Flex>
+  
                 <Box w='100%'>
                   <Text color='white' mb='6px' textAlign='center'>
                     Thank you for sharing!

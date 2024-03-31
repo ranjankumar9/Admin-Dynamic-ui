@@ -18,8 +18,11 @@ import {
   Button,
   Avatar,
   Tooltip,
+  InputGroup,
+  InputRightElement,
+  Input,
 } from "@chakra-ui/react";
-
+import { SearchIcon } from "@chakra-ui/icons";
 // Custom components
 import Card from "components/Card/Card.js";
 import CardHeader from "components/Card/CardHeader.js";
@@ -56,6 +59,8 @@ function QrCode() {
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(10);
   const totalPages = Math.ceil(projectdata.length / itemsPerPage);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [filteredData, setFilteredData] = useState([]);
 
   const goToNextPage = () => {
     setCurrentPage((prevPage) => Math.min(prevPage + 1, totalPages));
@@ -63,6 +68,10 @@ function QrCode() {
 
   const goToPrevPage = () => {
     setCurrentPage((prevPage) => Math.max(prevPage - 1, 1));
+  };
+
+  const handleSearchInputChange = (e) => {
+    setSearchQuery(e.target.value);
   };
 
   const ProjectTables = () => {
@@ -93,22 +102,34 @@ function QrCode() {
     ProjectTables()
   }, [])
 
+  useEffect(() => {
+    if (searchQuery === "") {
+      setFilteredData(projectdata);
+    } else {
+      const filteredData = projectdata.filter((project) =>
+        project.name.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+      setFilteredData(filteredData);
+    }
+  }, [searchQuery, projectdata]);
+
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
-  const paginatedData = projectdata.slice(startIndex, endIndex);
+  const paginatedData = filteredData.slice(startIndex, endIndex);
 
   return (
-    <Flex direction='column' pt={{ base: "120px", md: "75px" }}>
+    <Flex direction='column' pt={{ base: "70px", md: "55px" }}>
       {/* Projects Table */}
       <Card my='22px' overflowX={{ sm: "scroll", xl: "hidden" }} pb='0px'>
         <CardHeader p='6px 0px 22px 0px'>
           <Flex alignItems='center' justifyContent='space-between' width='100%'>
             <Flex direction='column'>
               <Text fontSize='lg' color='#fff' fontWeight='bold' mb='.5rem'>
-                Projects Table
+                Project Qr Table
               </Text>
 
               <Flex align='center'>
+
                 <Icon
                   as={AiFillCheckCircle}
                   color='green.500'
@@ -116,22 +137,38 @@ function QrCode() {
                   h='15px'
                   me='5px'
                 />
+
                 <Text fontSize='sm' color='gray.400' fontWeight='normal'>
                   <Text fontWeight='bold' as='span' color='gray.400'>
                     +30%
                   </Text>{" "}
                   this month
                 </Text>
-
               </Flex>
             </Flex>
-            {userType === "admin" || userType === "superadmin" &&
-              <Tooltip hasArrow label='Add Qr-Project' bg='gray.300' color='black'>
+
+            <Flex>
+              <InputGroup m="1rem">
+                <Input
+                  placeholder="Search by company name"
+                  color={'whiteAlpha.600'}
+                  value={searchQuery}
+                  onChange={handleSearchInputChange}
+                />
+                <InputRightElement pointerEvents="none">
+                  <Icon as={SearchIcon} color="gray.300" />
+                </InputRightElement>
+              </InputGroup>
+            </Flex>
+            {userType === "admin" || userType === "superadmin" ? (
+              <Tooltip hasArrow label='Add Project' bg='gray.300' color='black'>
                 <Text mb='.5rem' fontSize='30px' color='blue.200' fontWeight='bold' cursor={"pointer"}>
                   <IoIosAddCircleOutline ref={btnRef} colorScheme="teal" onClick={handleAdd} />
                 </Text>
               </Tooltip>
-            }
+            ) : (
+              <Text></Text>
+            )}
             <ProjectConfigurator btnRef={btnRef} isOpen={isOpen} onClose={onClose} ProjectTables={ProjectTables} dataType={dataType} />
           </Flex>
         </CardHeader>
