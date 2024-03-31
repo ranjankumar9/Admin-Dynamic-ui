@@ -28,7 +28,7 @@ function SignUp() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [type, setType] = useState("")
+  const [type, setType] = useState("admin")
   const [showPassword, setShowPassword] = useState(false);
   const dispatch = useDispatch();
   const history = useHistory();
@@ -46,8 +46,10 @@ function SignUp() {
       return;
     }
 
-    if (password.length < 6) {
-      toast.warning("Password must be at least 6 characters long");
+    var passwordRegex = /^(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?])(?=.*[a-zA-Z])(?=.*[0-9]).{6,}$/;
+
+    if (!passwordRegex.test(password)) {
+      toast.warning("Password must be at least 6 characters long and contain at least one special character, one alphabetical character, and one numerical character");
       return;
     }
 

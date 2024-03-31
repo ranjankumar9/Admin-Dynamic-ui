@@ -14,6 +14,7 @@ import {
 } from "@chakra-ui/react";
 import signInImage from "assets/img/signInImage.png";
 import AuthFooter from "components/Footer/AuthFooter";
+import Cookies from 'js-cookie';
 import GradientBorder from "components/GradientBorder/GradientBorder";
 import { useDispatch } from "react-redux";
 import { loginUser } from "Redux-Toolkit/authSlice";
@@ -39,23 +40,26 @@ function SignIn() {
       toast.warning("Please enter a valid email address");
       return;
     }
-    if (password.length < 6) {
-      toast.warning("Password must be at least 6 characters long");
+    var passwordRegex = /^(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?])(?=.*[a-zA-Z])(?=.*[0-9]).{6,}$/;
+
+    if (!passwordRegex.test(password)) {
+      toast.warning("Password must be at least 6 characters long and contain at least one special character, one alphabetical character, and one numerical character");
       return;
     }
+
     try {
       const res = await dispatch(loginUser(email, password));
       console.log(res);
       if (res.msg === "Login Successful") {
         toast.success(res.msg);
-
         setTimeout(() => {
           history.push('/admin/dashboard')
-        }, 3000)
-        localStorage.setItem("Token", res.token)
-        localStorage.setItem("User", res?.userDetails?.user)
-        localStorage.setItem("Email", res?.userDetails?.email)
-        localStorage.setItem("userType", res?.userDetails?.type)
+        }, 1000)
+
+        Cookies.set("Token", res.token);
+        Cookies.set("User", res?.userDetails?.user);
+        Cookies.set("Email", res?.userDetails?.email);
+        Cookies.set("userType", res?.userDetails?.type);
       } else {
         toast.error(res.msg);
       }
@@ -90,7 +94,7 @@ function SignIn() {
         me={{ base: "auto", lg: "50px", xl: "auto" }}>
         <Flex
           alignItems='center'
-          justifyContent='start'
+          justifyContent='center'
           style={{ userSelect: "none" }}
           mx={{ base: "auto", lg: "unset" }}
           ms={{ base: "auto", lg: "auto" }}
@@ -172,6 +176,16 @@ function SignIn() {
                   required
                 />
               </GradientBorder>
+            </FormControl>
+            <FormControl>
+              <FormLabel
+                ms='4px'
+                fontSize='sm'
+                fontWeight='normal'
+                color='white'>
+                Password
+              </FormLabel>
+          
             </FormControl>
             <FormControl display='flex' alignItems='center'>
               <DarkMode>

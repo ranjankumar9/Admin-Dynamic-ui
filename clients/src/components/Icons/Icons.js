@@ -631,4 +631,18 @@ export const dynamiclogo = createIcon({
   ),
 });
 
+export const CookiesIcon = createIcon({
+  displayName: "cookieslogo",
+  viewBox: "0 0 22 22",
+  path: (
+    <img
+      alt="FulgerWhiteIcon"
+      src="https://e7.pngegg.com/pngimages/831/501/png-clipart-biscuits-computer-icons-http-cookie-chocolate-chip-cookie-cookies-text-chocolate-chip-cookie.png"
+      width="18"
+      height="24"
+    />
+  ),
+});
+
+
 

@@ -16,12 +16,13 @@ import {
   RocketIcon,
 } from "components/Icons/Icons";
 import { SidebarResponsive } from "components/Sidebar/Sidebar";
+import Cookies from "js-cookie";
 import PropTypes from "prop-types";
 import React from "react";
 import { NavLink } from "react-router-dom";
 import routes from "routes.js";
 export default function AuthNavbar(props) {
-  const isAuth = localStorage.getItem("Token")
+  const isAuth = Cookies.get("Email");
   const [open, setOpen] = React.useState(false);
   const handleDrawerToggle = () => {
     setOpen(!open);
@@ -59,7 +60,7 @@ export default function AuthNavbar(props) {
         bg='linear-gradient(97.89deg, #FFFFFF 70.67%, rgba(117, 122, 140, 0) 108.55%)'
         bgClip='text'>
         <Text fontSize='lg' letterSpacing='3px' mt='3px' color='transparent'>
-         Admin Dynamic UI
+          Admin Dynamic UI
         </Text>
       </Box>
     </Link>

@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { base_Url } from './api';
+import Cookies from 'js-cookie';
 
 const initialState = {
   projects: [],
@@ -8,7 +9,7 @@ const initialState = {
   error: null,
 };
 
-let getToken = localStorage.getItem("Token")
+let getToken =  Cookies.get("Token")
 export const getProjectdata = createAsyncThunk('projects/fetchProjects', async () => {
   try {
     const response = await axios.get(`${base_Url}/api/project`, {

@@ -34,6 +34,7 @@ import LineChart from 'components/Charts/LineChart';
 import IconBox from 'components/Icons/IconBox';
 import { CarIcon, FulgerIcon, FulgerWhiteIcon } from 'components/Icons/Icons';
 import { Separator } from 'components/Separator/Separator';
+import Cookies from 'js-cookie';
 import React from 'react';
 import { BsArrowRight } from 'react-icons/bs';
 import { FaCube, FaFacebook, FaInstagram, FaPencilAlt, FaPenFancy, FaTwitter } from 'react-icons/fa';
@@ -48,9 +49,9 @@ import {
 } from 'variables/charts';
 
 function Profile() {
-	let user = localStorage.getItem("User")
-	let email = localStorage.getItem("Email")
-	let userType = localStorage.getItem("userType")
+	let user =  Cookies.get("User")
+	let email =  Cookies.get("Email")
+	let userType =  Cookies.get("userType")
 	return (
 		<Flex direction='column' mt={{ sm: '25px', md: '0px' }}>
 			<Box

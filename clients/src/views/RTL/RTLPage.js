@@ -38,6 +38,7 @@ import { CartIcon, DocumentIcon, GlobeIcon, RocketIcon, StatsIcon, WalletIcon } 
 // Tables
 import DashboardTableRow from 'components/Tables/DashboardTableRow';
 import TimelineRow from 'components/Tables/TimelineRow';
+import Cookies from 'js-cookie';
 import React, { useEffect, useState } from 'react';
 // Styles for the circular bar
 import { AiFillCheckCircle, AiOutlineFundProjectionScreen } from 'react-icons/ai';
@@ -58,8 +59,8 @@ import { dashboardTableData, timelineData } from 'variables/general';
 
 export default function Dashboard() {
 	const dispatch = useDispatch()
-	let user = localStorage.getItem("User")
-	let userType = localStorage.getItem("userType")
+	let user =  Cookies.get("User")
+	let userType =  Cookies.get("userType")
 	const [authordata, setAuthorData] = useState(0)
 	const [projectdata, setProjectData] = useState(0)
 	const [onlineStatus, setOnlineStatus] = useState(0)

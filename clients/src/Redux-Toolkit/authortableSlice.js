@@ -1,13 +1,14 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { base_Url } from './api';
+import Cookies from 'js-cookie';
 
 const initialState = {
   authors: [],
   loading: false,
   error: null,
 };
-const getToken = localStorage.getItem("Token");
+const getToken =  Cookies.get("Token");
 export const getAuthors = createAsyncThunk('authors/fetchAuthors', async () => {
   try {
     const response = await axios.get(`${base_Url}/api/author`, {

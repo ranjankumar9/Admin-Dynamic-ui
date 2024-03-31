@@ -43,6 +43,7 @@ import { BiHappy } from 'react-icons/bi';
 import { BsArrowRight } from 'react-icons/bs';
 import { IoCheckmarkDoneCircleSharp, IoEllipsisHorizontal } from 'react-icons/io5';
 import { useDispatch } from 'react-redux';
+import CookiesModal from '../../components/Configurator/CookiesModal'
 import {
 	barChartDataDashboard,
 	barChartOptionsDashboard,
@@ -50,11 +51,13 @@ import {
 	lineChartOptionsDashboard
 } from 'variables/charts';
 import { dashboardTableData, timelineData } from 'variables/general';
+import Cookies from 'js-cookie';
 
 export default function Dashboard() {
 	const dispatch = useDispatch()
-	let user = localStorage.getItem("User")
-	let userType = localStorage.getItem("userType")
+	let user =  Cookies.get("User")
+	let userType =  Cookies.get("userType")
+	let UserToken = Cookies.get("Token")
 	const [authordata, setAuthorData] = useState(0)
 	const [projectdata, setProjectData] = useState(0)
 	const [onlineStatus, setOnlineStatus] = useState(0)
@@ -97,10 +100,13 @@ export default function Dashboard() {
 		GetProject()
 	}, [])
 
+	let cookies = Cookies.get('accept-Cookies')
+	console.log(cookies)
 
 	return (
 		<Flex flexDirection='column' pt={{ base: '120px', md: '75px' }}>
 			<SimpleGrid columns={{ sm: 1, md: 2, xl: 4 }} spacing='24px'>
+			{!cookies && <CookiesModal />}
 				<Card>
 					<CardBody>
 						<Flex flexDirection='row' align='center' justify='center' w='100%'>

@@ -12,6 +12,7 @@ import {
   useColorModeValue,
   Avatar,
   useDisclosure,
+  Tooltip,
 } from "@chakra-ui/react";
 import { FaEllipsisV } from "react-icons/fa";
 import { MdDelete, MdEdit } from "react-icons/md";
@@ -19,6 +20,7 @@ import { deleteProject } from "Redux-Toolkit/projecttableSlice";
 import { useDispatch } from "react-redux";
 import DeleteConfigurator from "components/Configurator/DeleteConfigurator";
 import { EditProjectConfigurator } from "components/Configurator/EditProjectConfigurator";
+import Cookies from "js-cookie";
 
 function DashboardTableRow(props) {
   const { id, logo, name, status, budget, progression, lastItem, isOpenModal, ProjectTables, editRef } = props;
@@ -27,7 +29,7 @@ function DashboardTableRow(props) {
   const [deleteid, setDeleteid] = useState("");
   const [type, setType] = useState(null);
   const [editData, setEditData] = useState([])
-  const userType = localStorage.getItem("userType")
+  const userType = Cookies.get("userType")
   const { isOpen: isEditOpen, onOpen: onEditOpen, onClose: onEditClose } = useDisclosure();
   const { isOpen: isDeleteOpen, onOpen: onDeleteOpen, onClose: onDeleteClose } = useDisclosure();
 
@@ -95,25 +97,29 @@ function DashboardTableRow(props) {
       </Td>
       {userType === "admin" || userType === "superadmin" &&
         <Td borderBottomColor='#56577A' border={lastItem ? "none" : null}>
-          <Button p='0px' bg='transparent' variant='no-hover'>
-            <Text
-              fontSize='sm'
-              color='gray.400'
-              fontWeight='bold'
-              cursor='pointer'>
-              <MdEdit ref={editRef} onClick={() => handleEditRow(props)} />
-            </Text>
-          </Button>
+          <Tooltip hasArrow label='Edit' bg='gray.300' color='black'>
+            <Button p='0px' bg='transparent' variant='no-hover'>
+              <Text
+                fontSize='sm'
+                color='gray.400'
+                fontWeight='bold'
+                cursor='pointer'>
+                <MdEdit ref={editRef} onClick={() => handleEditRow(props)} />
+              </Text>
+            </Button>
+          </Tooltip>
           <EditProjectConfigurator isOpen={isEditOpen} onClose={onEditClose} editData={editData} ProjectTables={ProjectTables} />
-          <Button p='0px' bg='transparent' variant='no-hover'>
-            <Text
-              fontSize='sm'
-              color='gray.400'
-              fontWeight='bold'
-              cursor='pointer'>
-              <MdDelete onClick={() => handleDeleteTableRow(id)} />
-            </Text>
-          </Button>
+          <Tooltip hasArrow label='Delete' bg='gray.300' color='black'>
+            <Button p='0px' bg='transparent' variant='no-hover'>
+              <Text
+                fontSize='sm'
+                color='gray.400'
+                fontWeight='bold'
+                cursor='pointer'>
+                <MdDelete onClick={() => handleDeleteTableRow(id)} />
+              </Text>
+            </Button>
+          </Tooltip>
           <DeleteConfigurator isOpen={isDeleteOpen} onClose={onDeleteClose} deleteid={deleteid} handleDelete={handleDelete} />
         </Td>}
     </Tr>

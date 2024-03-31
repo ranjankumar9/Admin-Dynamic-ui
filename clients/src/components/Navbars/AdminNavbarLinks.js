@@ -13,6 +13,7 @@ import {
   MenuItem,
   MenuList,
   Text,
+  Tooltip,
 } from "@chakra-ui/react";
 import { logOutUser } from "Redux-Toolkit/authSlice";
 // Assets
@@ -30,26 +31,31 @@ import routes from "routes.js";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
+import Cookies from "js-cookie";
 
 export default function HeaderLinks(props) {
   const { variant, children, fixed, secondary, onOpen, ...rest } = props;
   const dispatch = useDispatch();
   const history = useHistory();
-  let isAuth = localStorage.getItem("Token")
-  let email = localStorage.getItem("email")
+  let isAuth = Cookies.get("Token")
+
 
   const handleLogOut = () => {
+    let email = Cookies.get("email")
     dispatch(logOutUser(email)).then((res) => {
-      localStorage.clear()
-      console.log(res)
-      if (res.msg == "Logout successful") {
+      Cookies.remove("Email");
+      setTimeout(() => {
+        Cookies.remove('accept-Cookies')
+      }, 2000)
+      console.log(res);
+      if (res.msg === "Logout successful") {
         toast.success(res.msg);
         setTimeout(() => {
-          history.push('/auth/signin')
-        }, 3000)
+          history.push('/auth/signin');
+        }, 3000);
       }
-    })
-  }
+    });
+  };
   // Chakra Color Mode
   let inputBg = "#0F1535";
   let mainText = "gray.400";
@@ -67,43 +73,6 @@ export default function HeaderLinks(props) {
       w={{ sm: "100%", md: "auto" }}
       alignItems='center'
       flexDirection='row'>
-      <InputGroup
-        cursor='pointer'
-        bg={inputBg}
-        borderRadius='15px'
-        borderColor='rgba(226, 232, 240, 0.3)'
-        w={{
-          sm: "128px",
-          md: "200px",
-        }}
-        me={{ sm: "auto", md: "20px" }}>
-        <InputLeftElement
-          children={
-            <IconButton
-              bg='inherit'
-              borderRadius='inherit'
-              _hover='none'
-              _active={{
-                bg: "inherit",
-                transform: "none",
-                borderColor: "transparent",
-              }}
-              _focus={{
-                boxShadow: "none",
-              }}
-              icon={
-                <SearchIcon color={searchIcon} w='15px' h='15px' />
-              }></IconButton>
-          }
-        />
-        <Input
-          fontSize='xs'
-          py='11px'
-          color={mainText}
-          placeholder='Type here...'
-          borderRadius='inherit'
-        />
-      </InputGroup>
       <ToastContainer />
       <SidebarResponsive
         iconColor='gray.500'
@@ -113,16 +82,18 @@ export default function HeaderLinks(props) {
         // logo={logo}
         {...rest}
       />
-      <SettingsIcon
-        cursor='pointer'
-        ms={{ base: "16px", xl: "0px" }}
-        me='16px'
-        ref={settingsRef}
-        onClick={props.onOpen}
-        color={navbarIcon}
-        w='18px'
-        h='18px'
-      />
+      <Tooltip hasArrow label='Menu Setting' bg='gray.300' color='black'>
+        <SettingsIcon
+          cursor='pointer'
+          ms={{ base: "16px", xl: "0px" }}
+          me='16px'
+          ref={settingsRef}
+          onClick={props.onOpen}
+          color={navbarIcon}
+          w='18px'
+          h='18px'
+        />
+      </Tooltip>
       {isAuth ? (
         <Button
           ms='0px'
@@ -174,10 +145,11 @@ export default function HeaderLinks(props) {
       </NavLink>
       )}
       <Menu>
-        <MenuButton align='center'>
-          <BellIcon color={navbarIcon} mt='-4px' w='18px' h='18px' />
-        </MenuButton>
-
+        <Tooltip hasArrow label='Notification' bg='gray.300' color='black'>
+          <MenuButton align='center'>
+            <BellIcon color={navbarIcon} mt='-4px' w='18px' h='18px' />
+          </MenuButton>
+        </Tooltip>
         <MenuList
           border='transparent'
           backdropFilter='blur(63px)'

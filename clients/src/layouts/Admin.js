@@ -15,8 +15,18 @@ import FixedPlugin from "../components/FixedPlugin/FixedPlugin";
 import MainPanel from "../components/Layout/MainPanel";
 import PanelContainer from "../components/Layout/PanelContainer";
 import PanelContent from "../components/Layout/PanelContent";
+import { useSelector } from "react-redux";
+import Cookies from "js-cookie";
+
 export default function Dashboard(props) {
   const { ...rest } = props;
+  const isAuth = Cookies.get("Email")
+  console.log(isAuth)
+
+  // If not authenticated, redirect to login page
+  if (!isAuth) {
+    return <Redirect to="/auth/signin" />;
+  }
   // states and functions
   const [sidebarVariant, setSidebarVariant] = useState("transparent");
   const [fixed, setFixed] = useState(false);
@@ -98,7 +108,7 @@ export default function Dashboard(props) {
     <ChakraProvider theme={theme} resetCss={false}>
       <Sidebar
         routes={routes}
-        logoText={"VISION UI FREE"}
+        logoText={"DYNAMIC UI"}
         display='none'
         sidebarVariant={sidebarVariant}
         {...rest}
@@ -112,7 +122,7 @@ export default function Dashboard(props) {
         <Portal>
           <AdminNavbar
             onOpen={onOpen}
-            logoText={"VISION UI FREE"}
+            logoText={"DYNAMIC UI"}
             brandText={getActiveRoute(routes)}
             secondary={getActiveNavbar(routes)}
             fixed={fixed}

@@ -7,6 +7,7 @@ import {
   Flex,
   Td,
   Text,
+  Tooltip,
   Tr,
   useColorModeValue,
   useDisclosure,
@@ -19,6 +20,7 @@ import { useDispatch } from "react-redux";
 import { deleteAuthor } from "Redux-Toolkit/authortableSlice";
 import { AuthorConfigurator } from "components/Configurator/AuthorConfigurator";
 import { EditAuthorConfigurator } from "components/Configurator/EditAuthorConfigurator";
+import Cookies from "js-cookie";
 
 
 function TablesTableRow(props) {
@@ -47,7 +49,7 @@ function TablesTableRow(props) {
   const textColor = useColorModeValue("gray.700", "white");
   const bgStatus = useColorModeValue("gray.400", "#1a202c");
   const colorStatus = useColorModeValue("white", "gray.400");
-  const userType = localStorage.getItem("userType")
+  const userType = Cookies.get("userType")
 
 
   const handleDeleteTableRow = (id) => {
@@ -133,26 +135,32 @@ function TablesTableRow(props) {
           {date}
         </Text>
       </Td>
-     {userType === "superadmin" &&  <Td border={lastItem ? "none" : null} borderBottomColor='#56577A'>
-        <Button p='0px' bg='transparent' variant='no-hover'>
-          <Text
-            fontSize='sm'
-            color='gray.400'
-            fontWeight='bold'
-            cursor='pointer'>
-            <MdEdit onClick={() => handleEditTableRow(props)} />
-          </Text>
-        </Button>
+      {userType === "superadmin" && <Td border={lastItem ? "none" : null} borderBottomColor='#56577A'>
+        <Tooltip hasArrow label='Edit' bg='gray.300' color='black'>
+          <Button p='0px' bg='transparent' variant='no-hover'>
+            <Text
+              fontSize='sm'
+              color='gray.400'
+              fontWeight='bold'
+              cursor='pointer'>
+
+              <MdEdit onClick={() => handleEditTableRow(props)} />
+
+            </Text>
+          </Button>
+        </Tooltip>
         <EditAuthorConfigurator isOpen={isEditOpen} onClose={onEditClose} editData={editData} AuthorTables={AuthorTables} />
-        <Button p='0px' bg='transparent' variant='no-hover'>
-          <Text
-            fontSize='sm'
-            color='gray.400'
-            fontWeight='bold'
-            cursor='pointer'>
-            <MdDelete onClick={() => handleDeleteTableRow(id)} />
-          </Text>
-        </Button>
+        <Tooltip hasArrow label='Delete' bg='gray.300' color='black'>
+          <Button p='0px' bg='transparent' variant='no-hover'>
+            <Text
+              fontSize='sm'
+              color='gray.400'
+              fontWeight='bold'
+              cursor='pointer'>
+              <MdDelete onClick={() => handleDeleteTableRow(id)} />
+            </Text>
+          </Button>
+        </Tooltip>
         <DeleteConfigurator isOpen={isDeleteOpen} onClose={onDeleteClose} deleteid={deleteid} handleDelete={handleDelete} />
       </Td>}
     </Tr>

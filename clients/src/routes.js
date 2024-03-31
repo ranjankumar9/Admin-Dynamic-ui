@@ -65,7 +65,7 @@ var dashRoutes = [
   {
     name: "ACCOUNT PAGES",
     category: "account",
-    rtlName:"account",
+    rtlName: "account",
     state: "pageCollapse",
     views: [
       {

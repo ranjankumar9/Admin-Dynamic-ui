@@ -12,6 +12,7 @@ import {
   useColorModeValue,
   Avatar,
   useDisclosure,
+  Tooltip,
 } from "@chakra-ui/react";
 import { FaEllipsisV } from "react-icons/fa";
 import { MdDelete, MdEdit } from "react-icons/md";
@@ -21,6 +22,7 @@ import DeleteConfigurator from "components/Configurator/DeleteConfigurator";
 import { EditProjectConfigurator } from "components/Configurator/EditProjectConfigurator";
 import { IoMdDownload } from "react-icons/io";
 import DownloadConfigurator from "components/Configurator/DownloadConfigurator";
+import Cookies from "js-cookie";
 
 function TablesQrCode(props) {
   const { id, logo, name, status, budget, progression, lastItem, isOpenModal, ProjectTables, editRef } = props;
@@ -30,7 +32,7 @@ function TablesQrCode(props) {
   const [type, setType] = useState(null);
   const [editData, setEditData] = useState([])
   const [qrdata, setQrData] = useState([])
-  const userType = localStorage.getItem("userType")
+  const userType = Cookies.get("userType")
   const { isOpen: isEditOpen, onOpen: onEditOpen, onClose: onEditClose } = useDisclosure();
   const { isOpen: isDeleteOpen, onOpen: onDeleteOpen, onClose: onDeleteClose } = useDisclosure();
   const { isOpen: isQrOpen, onOpen: onQrOpen, onClose: onQrClose } = useDisclosure();
@@ -103,35 +105,39 @@ function TablesQrCode(props) {
         </Flex>
       </Td>
       {userType === "admin" || userType === "superadmin" && <Td borderBottomColor='#56577A' border={lastItem ? "none" : null}>
-        <Button p='0px' bg='transparent' variant='no-hover'>
-          <Text
-            fontSize='sm'
-            color='gray.400'
-            fontWeight='bold'
-            cursor='pointer'>
-            <MdEdit ref={editRef} onClick={() => handleEditRow(props)} />
-          </Text>
-        </Button>
-
-        <Button p='0px' bg='transparent' variant='no-hover'>
-          <Text
-            fontSize='sm'
-            color='gray.400'
-            fontWeight='bold'
-            cursor='pointer'>
-            <MdDelete onClick={() => handleDeleteTableRow(id)} />
-          </Text>
-        </Button>
-
-        <Button p='0px' bg='transparent' variant='no-hover'>
-          <Text
-            fontSize='sm'
-            color='gray.400'
-            fontWeight='bold'
-            cursor='pointer'>
-            <IoMdDownload onClick={() => handleDownload(props)} />
-          </Text>
-        </Button>
+        <Tooltip hasArrow label='Edit' bg='gray.300' color='black'>
+          <Button p='0px' bg='transparent' variant='no-hover'>
+            <Text
+              fontSize='sm'
+              color='gray.400'
+              fontWeight='bold'
+              cursor='pointer'>
+              <MdEdit ref={editRef} onClick={() => handleEditRow(props)} />
+            </Text>
+          </Button>
+        </Tooltip>
+        <Tooltip hasArrow label='Delete' bg='gray.300' color='black'>
+          <Button p='0px' bg='transparent' variant='no-hover'>
+            <Text
+              fontSize='sm'
+              color='gray.400'
+              fontWeight='bold'
+              cursor='pointer'>
+              <MdDelete onClick={() => handleDeleteTableRow(id)} />
+            </Text>
+          </Button>
+        </Tooltip>
+        <Tooltip hasArrow label='Qr-Code' bg='gray.300' color='black'>
+          <Button p='0px' bg='transparent' variant='no-hover'>
+            <Text
+              fontSize='sm'
+              color='gray.400'
+              fontWeight='bold'
+              cursor='pointer'>
+              <IoMdDownload onClick={() => handleDownload(props)} />
+            </Text>
+          </Button>
+        </Tooltip>
       </Td>}
       <DeleteConfigurator isOpen={isDeleteOpen} onClose={onDeleteClose} deleteid={deleteid} handleDelete={handleDelete} />
       <EditProjectConfigurator isOpen={isEditOpen} onClose={onEditClose} editData={editData} ProjectTables={ProjectTables} />
