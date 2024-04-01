@@ -18,14 +18,8 @@ import {
 } from '@chakra-ui/react';
 import avatar11 from 'assets/img/avatars/avatar11.png';
 // Images
-import avatar2 from 'assets/img/avatars/avatar2.png';
-import avatar3 from 'assets/img/avatars/avatar3.png';
-import avatar4 from 'assets/img/avatars/avatar4.png';
-import avatar6 from 'assets/img/avatars/avatar6.png';
 import bgProfile from 'assets/img/bgProfile.png';
-import ProjectImage1 from 'assets/img/ProjectImage1.png';
-import ProjectImage2 from 'assets/img/ProjectImage2.png';
-import ProjectImage3 from 'assets/img/ProjectImage3.png';
+import { GrUserAdmin } from "react-icons/gr";
 // Custom components
 import Card from 'components/Card/Card';
 import CardBody from 'components/Card/CardBody';
@@ -80,17 +74,8 @@ function Profile() {
 							direction={{ sm: 'column', md: 'row' }}
 							w={{ sm: '100%' }}
 							textAlign={{ sm: 'center', md: 'start' }}>
-							<Avatar me={{ md: '22px' }} src={avatar11} w='80px' h='80px' borderRadius='15px'>
-								<AvatarBadge
-									cursor='pointer'
-									borderRadius='8px'
-									border='transparent'
-									bg='linear-gradient(138.78deg, rgba(6, 11, 40, 0.94) 17.44%, rgba(10, 14, 35, 0.49) 93.55%, rgba(10, 14, 35, 0.69) 93.55%)'
-									boxSize='26px'
-									backdropFilter='blur(120px)'>
-									<Icon h='12px' w='12px' color='#fff' as={FaPencilAlt} />
-								</AvatarBadge>
-							</Avatar>
+							<Icon me={{ md: '22px' }} as={GrUserAdmin} color={'whiteAlpha.800'} w='80px' h='80px' borderRadius='15px' />
+								
 							<Flex direction='column' maxWidth='100%' my={{ sm: '14px' }}>
 								<Text
 									fontSize={{ sm: 'lg', lg: 'xl' }}
