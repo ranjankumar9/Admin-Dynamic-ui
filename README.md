@@ -1,42 +1,63 @@
-# Lyst-clone
 
-Lyst is a fashion technology company, and premium shopping app.
 
-# About this project: 🙌
+Backend Deployed Link :- https://encouraging-petticoat-calf.cyclic.app
+Frontend Deployed Link :- https://6487aae7d791b62e4d783f90--famous-madeleine-76e991.netlify.app/
 
-This is a team project, built by us in the Construct Week - Unit 4 at Masai School.
 
-> In this project we have tried to clone frontend of Lyst. Cart functionality has been added using browser's localstorage and Redux. Project design is responsive for all screen sizes. This project is an effort to implement learning at masai and improve our understanding of the React.
+# ShopOffer.com
+Clone of KFC
 
-- Here is the link of our website live on netlify: https://lyst-clone.netlify.app/
 
-## Our Team Members ❤️
+# Tech stack used in the Project:
 
-- **[Akshit Rana](https://github.com/Akshit3010)**
-- **[Vaishali Bhoyar](https://github.com/V-bhoy)**
-- **[Haresh Solanki](https://github.com/haresh2349)**
-- **[Rahul Gupta](https://github.com/rahulgupta12032003)**
-- **[Raviranjan Kumar](https://github.com/Raviranjan-508)**
-- **[Umesh Yadav](https://github.com/umeshyadavrocks)**
-- **[Nitesh Singh Rawat](https://github.com/niteshrawat0401)**
 
-### Pages & Features 👇
+#About Project :- The main Functionalities of this Project is, in one time two or more members can login with unique name and cart is also behave uniquely.
 
-- `Home Page`: Nav Bar with drop downs, sliding banners & slider for Products.
-- `Sign-In`: User authentication to check whether user email and password match with details existing in the database.
-- `Search`: User can search for any of the products present in the website.
-- `Product Category Page`: Products created dynamically with filter by category, name and price.
-- `Cart`: User can see or remove products added in the cart. Also the user can not add data to the cart without signing in to the website.
-- `Checkout Page`: Users can increase, decrease the quantity of the product and can apply discount coupons.
-- `Payment Page`: Users can add their payment details, address and make payment.
-- `Additional Features`: Kept the branding, fonts, colors and favicon and titles consistent throughout the whole site to give a feel like the original site.
 
-## Tech Stack
 
-- React js
-- Redux
-- Javascript - (Local Storage)
-- Tailwind
-- Material UI
+# Some Snippets of the Project
 
-## Screenshots :
+# Home Page
+![kfc1](https://github.com/ranjankumar9/Kfc_git/assets/107936455/eeaeda93-a7bb-4fe3-bdbe-dc8b18df36a2)
+
+# Product Page
+![product page](https://github.com/ranjankumar9/Kfc_git/assets/107936455/07162a20-f158-4d72-a9c0-78f8c85e54ef)
+
+# Deals Page
+![deals](https://github.com/ranjankumar9/Kfc_git/assets/107936455/a88bf318-b28b-4792-bc49-2be935929759)
+
+# Cart Page
+![cartpage](https://github.com/ranjankumar9/Kfc_git/assets/107936455/43163f80-befb-48dd-adde-6cfd4324a81c)
+
+# Register 
+![user Register](https://github.com/ranjankumar9/Kfc_git/assets/107936455/8deec1d3-2733-4a57-a96d-a90569dc9e56)
+
+# Login Section
+![userLogin](https://github.com/ranjankumar9/Kfc_git/assets/107936455/7596727d-cd77-40eb-aab3-010f8f3951f3)
+
+# Admin-Register Page
+![admin register](https://github.com/ranjankumar9/Kfc_git/assets/107936455/d8d8e36e-0d16-4492-a4fe-02e48d53bd0a)
+
+# Admin Login Page
+![admin login](https://github.com/ranjankumar9/Kfc_git/assets/107936455/0dfd5679-f562-4966-adef-83c1888b9812)
+
+# Admin Product Page
+![admin products](https://github.com/ranjankumar9/Kfc_git/assets/107936455/731baf14-8277-4c7e-b239-879a99df08ed)
+
+# Admin Add-Product Page
+![admin add products](https://github.com/ranjankumar9/Kfc_git/assets/107936455/eefb381a-f1ab-431a-a46c-ef0c2e7b1fe6)
+
+# Admin User-details Page
+![admin userdetails](https://github.com/ranjankumar9/Kfc_git/assets/107936455/9f3cdc04-31cf-44ac-8588-cd4f146bf67f)
+
+# Payment-details Page
+![pay mode](https://github.com/ranjankumar9/Kfc_git/assets/107936455/5802333d-7d5b-40c4-ac23-4a4dd97050e6)
+
+# payment-card Page
+![payment](https://github.com/ranjankumar9/Kfc_git/assets/107936455/4b18010f-ca82-495c-9fa6-503d50374c3a)
+
+
+
+
+
+
