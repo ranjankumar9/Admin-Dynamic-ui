@@ -4,16 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "setup": "node bin/installcheck && npm install && npm link && ((node bin/clientcheck && cd ../client && npm install) || echo Web app not installed) && ((cd ../server && node bin/appcheck && cd ../app && npm install && cd ../server && node bin/setup.js) || echo Mobile app not installed) && npm run dev",
-    "cleanup": "node bin/cleanup",
-    "client": "cd ../client && npm start",
-    "server": "nodemon server.js",
-    "app": "cd ../app && npx expo start",
-    "dev": "concurrently \"npm run client\" \"npm run server\"",
-    "test": "mocha test/run --exit",
-    "worker": "node worker",
-    "knex": "knex",
-    "heroku-postbuild": "node bin/clientcheck && cd client && npm install && npm run build"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "server": "nodemon server.js"
   },
   "keywords": [],
   "author": "",
