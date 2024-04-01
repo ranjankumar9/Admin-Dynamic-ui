@@ -6,12 +6,23 @@ Frontend Deployed Link :- https://admin-dynamic-ui.netlify.app/
 
 # Tech stack used in the Project:
 
+# Frontend TechStack
+* Html5
+* CSS3
+* Javascript
+* Cookies
+* React
+* React-Redux
+* Redux-Toolkit
+* Chart.js
+* Apex chart
 
-
-#About Project :- The main Functionalities of this Project is, in one time two or more members can login with unique name and cart is also behave uniquely.
-
-
-
+# Backend TechStack
+* Node.js
+* Express.js
+* Mongodb
+* JWT
+  
 # Some Snippets of the Project
 
 # Sign-up
@@ -68,6 +79,9 @@ Frontend Deployed Link :- https://admin-dynamic-ui.netlify.app/
 
 ![Nav-Configurator](https://github.com/ranjankumar9/Admin-Dynamic-ui/assets/107936455/d4ad1aaf-bdaa-46c2-95f8-f38ce462c574)
 
+# Cookies 
+
+![Cookies](https://github.com/ranjankumar9/Admin-Dynamic-ui/assets/107936455/480df299-4778-4244-a84b-6042e098031e)
 
 
 
