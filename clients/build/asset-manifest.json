@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/static/css/main.568d0880.css",
-    "main.js": "/static/js/main.57810eeb.js",
+    "main.css": "/static/css/main.5bc6f8e5.css",
+    "main.js": "/static/js/main.8924c9f2.js",
     "static/media/signUpImage.png": "/static/media/signUpImage.ce32c5768505cac270ef.png",
     "static/media/signInImage.png": "/static/media/signInImage.54090d1d6f00462e1f4b.png",
     "static/media/billing-background-card.png": "/static/media/billing-background-card.12071e802769d6f46e3e.png",
@@ -12,16 +12,13 @@
     "static/media/bgProfile.png": "/static/media/bgProfile.d734b546dfd26a184fcb.png",
     "static/media/avatar8.png": "/static/media/avatar8.9719f14554a45416b270.png",
     "static/media/SidebarHelpImage.png": "/static/media/SidebarHelpImage.40ef5912be5ef8097186.png",
-    "static/media/ProjectImage3.png": "/static/media/ProjectImage3.612b1c42b661baf74aea.png",
-    "static/media/ProjectImage1.png": "/static/media/ProjectImage1.bed72a005437df70012f.png",
-    "static/media/ProjectImage2.png": "/static/media/ProjectImage2.e33d8e1649b42af9731b.png",
     "static/media/background-body-admin.jpg": "/static/media/background-body-admin.6e895f3880826879105e.jpg",
     "index.html": "/index.html",
-    "main.568d0880.css.map": "/static/css/main.568d0880.css.map",
-    "main.57810eeb.js.map": "/static/js/main.57810eeb.js.map"
+    "main.5bc6f8e5.css.map": "/static/css/main.5bc6f8e5.css.map",
+    "main.8924c9f2.js.map": "/static/js/main.8924c9f2.js.map"
   },
   "entrypoints": [
-    "static/css/main.568d0880.css",
-    "static/js/main.57810eeb.js"
+    "static/css/main.5bc6f8e5.css",
+    "static/js/main.8924c9f2.js"
   ]
 }

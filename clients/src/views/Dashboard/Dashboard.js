@@ -57,7 +57,6 @@ export default function Dashboard() {
 	const dispatch = useDispatch()
 	let user =  Cookies.get("User")
 	let userType =  Cookies.get("userType")
-	let UserToken = Cookies.get("Token")
 	const [authordata, setAuthorData] = useState(0)
 	const [projectdata, setProjectData] = useState(0)
 	const [onlineStatus, setOnlineStatus] = useState(0)
