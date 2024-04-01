@@ -3,9 +3,6 @@
 Backend Deployed Link :- https://sore-rose-python-gear.cyclic.app
 Frontend Deployed Link :- https://admin-dynamic-ui.netlify.app/
 
-
-# Tech stack used in the Project:
-
 # Frontend TechStack
 * Html5
 * CSS3
