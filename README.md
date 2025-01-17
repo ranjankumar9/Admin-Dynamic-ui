@@ -1,6 +1,6 @@
 
 
-Backend Deployed Link :- https://sore-rose-python-gear.cyclic.app
+Backend Deployed Link :- https://admin-dynamic-backend.onrender.com
 Frontend Deployed Link :- https://admin-dynamic-ui.netlify.app/
 
 # Frontend TechStack
