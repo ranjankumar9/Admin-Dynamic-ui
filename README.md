@@ -1,7 +1,7 @@
 
 
 Backend Deployed Link :- https://admin-dynamic-backend.onrender.com/
-Frontend Deployed Link :- https://admin-dynamic-ui.netlify.app/
+Frontend Deployed Link :- https://cool-concha-fb6059.netlify.app/
 
 # Frontend TechStack
 * Html5
